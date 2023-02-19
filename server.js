@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 // cross origin access 
 const cors = require('cors');
+const axios = require('axios');
 
 
 
@@ -26,7 +27,14 @@ app.get('/test_route', (req, res) => {
     res.send("good route!")
 })
 
-
+app.get('/starships/', async (req, res) => {
+ 
+    // call API
+    let apiResponse = await axios(`https://swapi.dev/api/starships/`)
+    const data = apiResponse.name;
+    console.log(data);
+    res.json(data);
+});
 
 
 app.get('/*', (req, res) => {
